@@ -1,0 +1,79 @@
+<!DOCTYPE html> 
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="typewriter.css">
+</head> 
+
+
+<body>
+
+
+<p id="typedtext">Click this</p>
+
+<script id="typewriter">
+var aText = new Array(
+"A red sun hangs low in the sky, echoing of Dying earth. You are sitting on the Front Porch, wrinkled brain pumping under your wrinkled brow. You are lost in reverie, floating memories of the days you've left behind. The wind carries a melody over the ocean of time personified as the lake your cabin faces in the sparkle of a wind chime. It tugs on you like an insistent child on your hand when you've paused like this before, so many half remembered times through a carnival, or a wooded path, or a wedding. The sun falls into the lake and the temperature fall pleasantly after the heat of the day.",
+);
+var bText = new Array(
+	"other text");
+var iSpeed =25; // time delay of print out
+var iIndex = 0; // start printing array at this posision
+var iArrLength = aText[0].length; // the length of the text array
+var iScrollAt = 20; // start scrolling up at this many lines
+ 
+var iTextPos = 0; // initialise text position
+var sContents = ''; // initialise contents variable
+var iRow; // initialise current row
+
+function typewritera()
+{
+ sContents =  ' ';
+ iRow = Math.max(0, iIndex-iScrollAt);
+ var destination = document.getElementById("typedtext");
+ 
+ while ( iRow < iIndex ) {
+  sContents += aText[iRow++] + '<br />';
+ }
+ destination.innerHTML = sContents + aText[iIndex].substring(0, iTextPos) + "_";
+ if ( iTextPos++ == iArrLength ) {
+  iTextPos = 0;
+  iIndex++;
+  if ( iIndex != aText.length ) {
+   iArrLength = aText[iIndex].length;
+   setTimeout("typewritera()", 500);
+  }
+ } else {
+  setTimeout("typewritera()", iSpeed);
+ }
+}
+
+typewritera();
+
+function typewriterb()
+{
+ sContents =  ' ';
+ iRow = Math.max(0, iIndex-iScrollAt);
+ var destination = document.getElementById("typedtextB");
+ 
+ while ( iRow < iIndex ) {
+  sContents += bText[iRow++] + '<br />';
+ }
+ destination.innerHTML = sContents + bText[iIndex].substring(0, iTextPos) + "_";
+ if ( iTextPos++ == iArrLength ) {
+  iTextPos = 0;
+  iIndex++;
+  if ( iIndex != bText.length ) {
+   iArrLength = bText[iIndex].length;
+   setTimeout("typewriterb()", 500);
+  }
+ } else {
+  setTimeout("typewriterb()", iSpeed);
+ }
+}
+typewriterb();
+ </script>
+
+<!--<div id="typedtextB"></div>-->
+
+</body> 
+ </html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html> 
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="typewriter.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="mustache.min.js"></script>
+</head> 
+
+
+<body>
+<!--javascript experiments
+Consider "origValue" to append url
+https://www.w3schools.com/jquery/jquery_traversing_ancestors.asp-->
+<script>$(function(){
+    $("#fade").click(function(){
+        $("#typedtext").fadeToggle("slow");
+    });
+}); 
+    </script>
+<!--<script> //EXPERIMENTING WITH REMOVING THIGNS
+$(function(){
+  $("#choice1").click(function(){
+    $("#choice1").remove();
+  });
+});
+</script>-->
+<script>$(function(){
+    $("#choice1").click(function(){
+      $("#typedtext").text("The wind chimes chortle to themselves in their tinny tamber, and like a crystal, carry you out over the sea to the estuary, then the bayou. The climate was just starting to rebel, and the revels still stormed the streets every February.");
+    });
+});
+</script>
+<div id="typedtextB"></div>
+<p id="fade">fade</p>
+<p id="typedtext">Click this</p>
+<p id="choice1">Choice 1</p>
+
+
+
+<!--mustache.js experiments-->
+<div id="sampleArea">This should work</div>
+
+<p id="sampleArea2">This should work</p>
+
+<script id="mustache">
+var person = {
+  firstName: "Home",
+  lastName: "Base",
+  blogURL: "http://goodlookingfriends.us"
+};
+var template = "<h1>{{firstName}} {{lastName}}</h1>Blog: {{blogURL}}"; //template
+var person1 = { option: "TEXT"}; //view
+var template1 = "<h1>{{option}}</h1>";
+var html = Mustache.to_html(template, person);
+$('#sampleArea').html(html);
+var html = Mustache.to_html(template1, person1);
+$('#sampleArea2').html(html);
+</script>
+
+
+
+<!--typewriter-->
+<script id="typewriter">
+var aText = new Array(
+"A red sun hangs low in the sky, echoing of Dying Earth. You are sitting on the Front Porch, wrinkled brain pumping under your wrinkled brow."
+);
+var bText = Mustache.to_html(template1, person1);
+var iSpeed =10; // time delay of print out
+var iIndex = 0; // start printing array at this posision
+var iArrLength = aText[0].length; // the length of the text array
+var iScrollAt = 20; // start scrolling up at this many lines
+ 
+var iTextPos = 0; // initialise text position
+var sContents = ''; // initialise contents variable
+var iRow; // initialise current row
+
+function typewritera()
+{
+ sContents =  ' ';
+ iRow = Math.max(0, iIndex-iScrollAt);
+ var destination = document.getElementById("typedtext");
+ 
+ while ( iRow < iIndex ) {
+  sContents += aText[iRow++] + '<br />';
+ }
+ destination.innerHTML = sContents + aText[iIndex].substring(0, iTextPos) + "_";
+ if ( iTextPos++ == iArrLength ) {
+  iTextPos = 0;
+  iIndex++;
+  if ( iIndex != aText.length ) {
+   iArrLength = aText[iIndex].length;
+   setTimeout("typewritera()", 500);
+  }
+ } else {
+  setTimeout("typewritera()", iSpeed);
+ }
+}
+
+typewritera();
+
+function typewriterb()
+{
+ sContents =  ' ';
+ iRow = Math.max(0, iIndex-iScrollAt);
+ var destination = document.getElementById("typedtextB");
+ 
+ while ( iRow < iIndex ) {
+  sContents += bText[iRow++] + '<br />';
+ }
+ destination.innerHTML = sContents + bText[iIndex].substring(0, iTextPos) + "_";
+ if ( iTextPos++ == iArrLength ) {
+  iTextPos = 0;
+  iIndex++;
+  if ( iIndex != bText.length ) {
+   iArrLength = bText[iIndex].length;
+   setTimeout("typewriterb()", 500);
+  }
+ } else {
+  setTimeout("typewriterb()", iSpeed);
+ }
+}
+typewriterb();
+ </script>
+
+</body> 
+ </html>

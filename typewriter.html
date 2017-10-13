@@ -2,6 +2,8 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="typewriter.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="mustache.min.js"></script>
 </head> 
 
 
@@ -9,13 +11,23 @@
 
 
 <p id="typedtext">Click this</p>
+<p id="Choice1">Next Song</p>
+
+<script id="mustache">
+var view = {
+  gameText: "A red sun hangs low in the sky, echoing of Dying Earth. You are sitting on the Front Porch, wrinkled brain pumping under your wrinkled brow.",
+  gameText2: "The wind chimes chortle to themselves in their tinny tamber, and like a crystal, carry you out over the sea to the estuary",
+  Choice2: "Another Choice"
+};
+var template = "{{gameText}}";
+var template2 = "{{gameText2}}";
+var template3 = "{{Choice2}}"
+var option2 = Mustache.render(template2, view);
+var Choice2 = Mustache.render(template3, view);
+</script>
 
 <script id="typewriter">
-var aText = new Array(
-"A RAD sun hangs low in the sky, echoing of Dying earth. You are sitting on the Front Porch, wrinkled brain pumping under your wrinkled brow. You are lost in reverie, floating memories of the days you've left behind. The wind carries a melody over the ocean of time personified as the lake your cabin faces in the sparkle of a wind chime. It tugs on you like an insistent child on your hand when you've paused like this before, so many half remembered times through a carnival, or a wooded path, or a wedding. The sun falls into the lake and the temperature fall pleasantly after the heat of the day.",
-);
-var bText = new Array(
-	"other text");
+var aText = [Mustache.render(template, view)];
 var iSpeed =25; // time delay of print out
 var iIndex = 0; // start printing array at this posision
 var iArrLength = aText[0].length; // the length of the text array
@@ -48,32 +60,15 @@ function typewritera()
 }
 
 typewritera();
-
-function typewriterb()
-{
- sContents =  ' ';
- iRow = Math.max(0, iIndex-iScrollAt);
- var destination = document.getElementById("typedtextB");
- 
- while ( iRow < iIndex ) {
-  sContents += bText[iRow++] + '<br />';
- }
- destination.innerHTML = sContents + bText[iIndex].substring(0, iTextPos) + "_";
- if ( iTextPos++ == iArrLength ) {
-  iTextPos = 0;
-  iIndex++;
-  if ( iIndex != bText.length ) {
-   iArrLength = bText[iIndex].length;
-   setTimeout("typewriterb()", 500);
-  }
- } else {
-  setTimeout("typewriterb()", iSpeed);
- }
-}
-typewriterb();
  </script>
 
-<!--<div id="typedtextB"></div>-->
+ <script>$(function(){
+  $("#Choice1").click(function(){
+    $('#typedtext').html(option2),
+    $("#Choice1").html(Choice2)
+  });
+});
+</script>
 
 </body> 
  </html>

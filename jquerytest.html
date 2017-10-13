@@ -30,7 +30,7 @@ $(function(){
     });
 });
 </script>
-<div id="typedtextB"></div>
+<span id="typedtextB"></span>
 <p id="fade">fade</p>
 <p id="typedtext">Click this</p>
 <p id="choice1">Choice 1</p>
@@ -38,36 +38,41 @@ $(function(){
 
 
 <!--mustache.js experiments-->
-<div id="sampleArea">This should work</div>
+<p id="sampleArea">This should work</p>
 
-<p id="sampleArea2">This should work</p>
+<div id="sampleArea2">This should work</div>
+
+<div id="sampleArea3">Another one</div>
 
 <script id="mustache">
 var person = {
-  firstName: "Home",
+  firstName: "Homie",
   lastName: "Base",
   blogURL: "http://goodlookingfriends.us"
 };
-var template = "<h1>{{firstName}} {{lastName}}</h1>Blog: {{blogURL}}"; //template
-var person1 = { option: "TEXT"}; //view
-var template1 = "<h1>{{option}}</h1>";
-var html = Mustache.to_html(template, person);
-$('#sampleArea').html(html);
-var html = Mustache.to_html(template1, person1);
-$('#sampleArea2').html(html);
+var template = "<h1>{{firstName}} {{lastName}}</h1>Blog: {{blogURL}}";
+var unformattedstring = Mustache.render(template, person); //template
+$('#sampleArea').html(unformattedstring);
+
+
+var person1 = { option: "This is teeeeeeeeeeeeeeeeeeextteeeeeeeeee eeeeeeeeextteeeeeeeeeeeeeee eeeextteeeeeeeeeeeeeeeeeeext"}; alert(person1.option.length); //view
+var template1 = "{{& option}}";
+var unformattedstring2 = Mustache.render(template1, person1);
+$('#sampleArea3').html(unformattedstring2); alert(unformattedstring2.length);
 </script>
+
 
 
 
 <!--typewriter-->
 <script id="typewriter">
-var aText = new Array(
+var aText = [
 "A red sun hangs low in the sky, echoing of Dying Earth. You are sitting on the Front Porch, wrinkled brain pumping under your wrinkled brow."
-);
-var bText = Mustache.to_html(template1, person1);
-var iSpeed =10; // time delay of print out
+];
+var bText = [Mustache.render(template1, person1)];
+var iSpeed =30; // time delay of print out
 var iIndex = 0; // start printing array at this posision
-var iArrLength = aText[0].length; // the length of the text array
+var iArrLength = aText[0].length;// the length of the text array
 var iScrollAt = 20; // start scrolling up at this many lines
  
 var iTextPos = 0; // initialise text position
@@ -113,7 +118,7 @@ function typewriterb()
   iIndex++;
   if ( iIndex != bText.length ) {
    iArrLength = bText[iIndex].length;
-   setTimeout("typewriterb()", 500);
+   setTimeout("typewriterb()", 10);
   }
  } else {
   setTimeout("typewriterb()", iSpeed);

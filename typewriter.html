@@ -8,26 +8,58 @@
 
 
 <body>
-
-
 <p id="typedtext">Click this</p>
-<p id="Choice1">Next Song</p>
+<p id="Choice">Next Choice</p>
+<p id="mustacheid">text</p>
 
 <script id="mustache">
 var view = {
-  gameText: "A red sun hangs low in the sky, echoing of Dying Earth. You are sitting on the Front Porch, wrinkled brain pumping under your wrinkled brow.",
-  gameText2: "The wind chimes chortle to themselves in their tinny tamber, and like a crystal, carry you out over the sea to the estuary",
-  Choice2: "Another Choice"
+  gameText: {
+    Text: "A red sun hangs low in the sky, echoing of Dying Earth. You are sitting on the Front Porch, wrinkled brain pumping under your wrinkled brow.",
+    Index: "{{gameText.mustIndex}}"
+  },
+  gameText2: {
+    Text: "The wind chimes chortle to themselves in their tinny tamber, and like a crystal, carry you out over the sea to the estuary. A red sun hangs low in the sky, echoing of Dying Earth. You are sitting on the Front Porch, wrinkled brain pumping under your wrinkled brow.",
+    Index: "{{gameText2.mustIndex}}"
+  },
+  gameText3: {
+    Text: "You are 26 again and your bones melt back into pliance, strength. You have taken over colin and Pete's porch.",
+    Index: "{{gameText3.mustIndex}}"
+  }
 };
-var template = "{{gameText}}";
-var template2 = "{{gameText2}}";
-var template3 = "{{Choice2}}"
-var option2 = Mustache.render(template2, view);
-var Choice2 = Mustache.render(template3, view);
+var choices = {
+  gameText: {
+    Text: "Choice 1",
+    mustIndex: "{{gameText2.Text}}",
+    Index: "{{gameText2.Index}}"
+  },
+  gameText2: {
+    Text: "Choice 2",
+    mustIndex: "{{gameText3.Text}}",
+    Index: "{{gameText3.Index}}"
+  },
+  gameText3: {
+    Text: "Choice 3",
+    mustIndex: "{{gameText.Text}}",
+    Index: "{{gameText.Index}}"
+  }
+}
+var template = "{{gameText.Text}}";
+var templateChoice = "{{gameText.mustIndex}}";
+var templateIndex = "{{gameText.Index}}";
+//var template2 = "{{gameText2}}";
+//var template3 = "{{Choice2}}";
+var option2 = Mustache.render(template, view);
+var Choice1 = Mustache.render(template, choices);
+var ChoiceIndex = Mustache.render(templateChoice, choices)
+$("#Choice").html(Choice1);
+var indexTest = "{{gameText.mustIndex}}";
+var indexRender = Mustache.render(indexTest, view);
+$("#mustacheid").html(indexRender);
 </script>
 
 <script id="typewriter">
-var aText = [Mustache.render(template, view)];
+var aText = [Mustache.render(template, view)]; //why does script run when text, but pause when you navigate away in a mustache
 var iSpeed =25; // time delay of print out
 var iIndex = 0; // start printing array at this posision
 var iArrLength = aText[0].length; // the length of the text array
@@ -62,13 +94,21 @@ function typewritera()
 typewritera();
  </script>
 
- <script>$(function(){
-  $("#Choice1").click(function(){
-    $('#typedtext').html(option2),
-    $("#Choice1").html(Choice2)
+ <script>
+ $(function ChangeSelection(){
+  $("#Choice").click(function(){
+    template = Mustache.render(templateChoice, choices); //needs to be set dynamically from user selection
+    alert(template);
+    Choice1 = Mustache.render(template, choices);
+    $("#Choice").html(Choice1);
+    aText = [Mustache.render(template, view)];
+    iArrLength = aText[0].length;
+    templateIndex = Mustache.render(templateIndex, choices);
+    alert(templateIndex);
+    templateChoice = Mustache.render(templateIndex, view);
+    alert(templateChoice);
   });
 });
 </script>
-
 </body> 
  </html>

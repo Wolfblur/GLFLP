@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="typewriter.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+<p id="typedtext"></p>
+<div id="choicelist">
+<p class="choices" id="choice1"></p>
+<p class="choices" id="choice2"></p>
+<p class="choices" id="choice3"></p>
+</div>
+<audio id="song" autoplay loop></audio>
+
+
+<script id='Choice Array' src='ChoiceArray.js'>
+</script>
+
+
+<script id='Do Choice'>
+$(function ChangeSelection(){
+    $("#choice1").click(function(){
+        $('audio').remove();
+        $('body').append('<audio id="song" autoplay><\/audio>'); 
+        doChoice(nextChoiceOption[0]);
+        aText = Placeholder;
+        document.getElementById("typewriter").remove();
+        $('body').append('<script id="typewriter" type="text/javascript" src="typewriter.js"><\/script>');
+        $('#choicelist').hide()
+        time = (iSpeed * iArrLength);
+        setTimeout(function() { 
+            $('#choicelist').fadeIn(3000);
+        }, time);
+    });
+    $("#choice2").click(function(){
+        $('audio').remove();
+        $('body').append('<audio id="song" autoplay><\/audio>'); 
+        doChoice(nextChoiceOption[1]);
+        aText = Placeholder;
+        document.getElementById("typewriter").remove();
+        $('body').append('<script id="typewriter" type="text/javascript" src="typewriter.js"><\/script>');
+        $('#choicelist').hide()
+        time = (iSpeed * iArrLength);
+        setTimeout(function() { 
+            $('#choicelist').fadeIn(3000);
+        }, time);
+    });
+    $("#choice3").click(function(){
+        $('audio').remove();
+        $('body').append('<audio id="song" autoplay><\/audio>');
+        doChoice(nextChoiceOption[2]);
+        aText = Placeholder;
+        document.getElementById("typewriter").remove();
+        $('body').append('<script id="typewriter" type="text/javascript" src="typewriter.js"><\/script>');
+        $('#choicelist').hide()
+        time = (iSpeed * iArrLength);
+        setTimeout(function() { 
+            $('#choicelist').fadeIn(3000);
+        }, time);
+    });
+});
+aText = Placeholder;
+</script>
+
+<script id='typewriter' src="typewriter.js"></script>
+
+<script id='Set Time'> 
+//Calculates time before choices should display
+  var time = (iSpeed * iArrLength);
+    // this is the show and hide function, all in 1!
+    $(document).ready(function() {
+      $('#choicelist').hide();
+    });
+    setTimeout(function() { 
+      $('#choicelist').fadeIn(3000);
+    }, time);
+</script> 
+
+</body>
+</html>

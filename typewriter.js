@@ -1,6 +1,6 @@
- //why does script run when text, but pause when you navigate away in a mustache
-var iSpeed =10; // time delay of print out
-var iIndex = 0; // start printing array at this posision
+
+var iSpeed =30; // time delay of print out
+var iIndex = 0; // start printing array at this position
 var iArrLength = aText[0].length; // the length of the text array
 var iScrollAt = 20; // start scrolling up at this many lines
  

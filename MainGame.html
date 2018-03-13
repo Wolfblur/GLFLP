@@ -3,40 +3,92 @@
 <head>
 <link rel="stylesheet" type="text/css" href="typewriter.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src=howler.core.js></script>
 </head>
-
 <body>
+<div id='gameContainer' style="width:90%;margin-left:auto;margin-right:auto;">
+<p class="lineage" id="lineage">Start</p>
+<table>
+    <td style="color:#e6dada">Settle In, Decay . . . Good Looking Friends
+    </td>
+    <td>
+        <a style="padding-left: 40px;" href="https://goodlookingfriends.bandcamp.com">
+            <image src="bandcamp.png" style="width:25px;height:25px;filter:invert(80%);"></image>
+        </a>
+    </td>
+    <td>
+        <p style="padding-left: 40px;" class="choices" id="showhistory">How did you get here?</p>
+    </td>
+</table>
+<p id="oldtext"></p>
 <p id="typedtext"></p>
-<div id="choicelist">
-<p class="choices" id="choice1"></p>
-<p class="choices" id="choice2"></p>
-<p class="choices" id="choice3"></p>
+<div id="choicelist" style="text-align:center;">
+<p class="js-choice-btn choices" data-next-choice="0" id="choice1"></p>
+<p class="js-choice-btn choices" data-next-choice="1" id="choice2"></p>
+<p class="js-choice-btn choices" data-next-choice="2" id="choice3"></p>
+<!--p class="choices" id="choice4"></p-->
+<!--p class="choices" id="SavePoint">Go To Last Save</p-->
+<audio id="song" autoplay loop>
+    <source src=>
+</audio>
 </div>
-<audio id="song" autoplay loop></audio>
+</div>
 
+
+<script>
+//var sound = new Howl({
+//  src: ['./music/Intro.mp3'],
+//  autoplay: true,
+//});
+//Howler.mobileAutoEnable = true;
+</script>
 
 <script id='Choice Array' src='ChoiceArray.js'>
 </script>
 
+<script id='Show History'>
+$(function ShowHistory(){
+    $('#showhistory').click(function(){
+        $('#oldtext').toggle()
+    });
+});
+$(document).ready(function() {
+    $('#showhistory').hide();
+});
+</script>
 
 <script id='Do Choice'>
 $(function ChangeSelection(){
     $("#choice1").click(function(){
+        //tracks selection history
+        $("#lineage").append(nextChoiceOption[0]);
+        $('#showhistory').show();
+        //appends current text to history when next choice is made
+        $('#oldtext').append("<br/>" + "<br/>" + $('#typedtext').text());
         $('audio').remove();
-        $('body').append('<audio id="song" autoplay><\/audio>'); 
+        $('body').append('<audio id="song" autoplay loop><\/audio>'); 
+        //restarts song after selection
+        //Assigns next text, choice, and song
         doChoice(nextChoiceOption[0]);
         aText = Placeholder;
+        //initializes typewriter effect
         document.getElementById("typewriter").remove();
         $('body').append('<script id="typewriter" type="text/javascript" src="typewriter.js"><\/script>');
+        //sets time to wait before choices are displayed
         $('#choicelist').hide()
         time = (iSpeed * iArrLength);
         setTimeout(function() { 
-            $('#choicelist').fadeIn(3000);
+            $('#choicelist').fadeIn(time);
         }, time);
     });
     $("#choice2").click(function(){
+       //tracks selection history
+        $("#lineage").append(nextChoiceOption[1]);
+        $('#showhistory').show();
+        //appends current text to history when next choice is made
+        $('#oldtext').append("<br/>" + "<br/>" + $('#typedtext').text());
         $('audio').remove();
-        $('body').append('<audio id="song" autoplay><\/audio>'); 
+        $('body').append('<audio id="song" autoplay loop><\/audio>'); 
         doChoice(nextChoiceOption[1]);
         aText = Placeholder;
         document.getElementById("typewriter").remove();
@@ -44,12 +96,19 @@ $(function ChangeSelection(){
         $('#choicelist').hide()
         time = (iSpeed * iArrLength);
         setTimeout(function() { 
-            $('#choicelist').fadeIn(3000);
+            $('#choicelist').fadeIn(time);
         }, time);
     });
     $("#choice3").click(function(){
+       //tracks selection history
+        $("#lineage").append(nextChoiceOption[2]);
+        $('#showhistory').show();
+        //appends current text to history when next choice is made
+        $('#oldtext').append("<br/>" + "<br/>" + $('#typedtext').text());
+        //$('#song').load();
+        //$('#song').play();
         $('audio').remove();
-        $('body').append('<audio id="song" autoplay><\/audio>');
+        $('body').append('<audio id="song" autoplay loop><\/audio>'); 
         doChoice(nextChoiceOption[2]);
         aText = Placeholder;
         document.getElementById("typewriter").remove();
@@ -57,8 +116,20 @@ $(function ChangeSelection(){
         $('#choicelist').hide()
         time = (iSpeed * iArrLength);
         setTimeout(function() { 
-            $('#choicelist').fadeIn(3000);
+            $('#choicelist').fadeIn(time);
         }, time);
+    });
+    $("#SavePoint").click(function(){
+        doChoice("FrontPorch132");
+        aText = Placeholder;
+        document.getElementById("typewriter").remove();
+        $('body').append('<script id="typewriter" type="text/javascript" src="typewriter.js"><\/script>');
+    });
+    $("#SavePoint").click(function(){
+    doChoice("FrontPorch132");
+    aText = Placeholder;
+    document.getElementById("typewriter").remove();
+    $('body').append('<script id="typewriter" type="text/javascript" src="typewriter.js"><\/script>');
     });
 });
 aText = Placeholder;

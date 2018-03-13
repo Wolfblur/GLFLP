@@ -4,12 +4,25 @@ body {
   background: #333;
   color:#fff;
   font-family: 'Anonymous Pro', monospace; 
-  font-size:20px; 
-  font-weight: bold;
+  font-size: medium; 
 }
 
 .choices {
   color:#edfeff;
   font-family: 'Anonymous Pro', monospace; 
-  font-size:20px; 
+  font-size: medium; 
+}
+.choices:hover{
+	color:#f7ffa8;
+	cursor: default;
+}
+
+.lineage {
+	display:none;
+}
+
+#oldtext {
+	font-size: small;
+	opacity: .6;
+	display: none;
 }
